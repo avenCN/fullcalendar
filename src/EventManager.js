@@ -24,6 +24,7 @@ function EventManager() { // assumed to be a calendar
 	t.refetchEventSources = refetchEventSources;
 	t.getEventSources = getEventSources;
 	t.getEventSourceById = getEventSourceById;
+	t.getEventById = getEventById;
 	t.addEventSource = addEventSource;
 	t.removeEventSource = removeEventSource;
 	t.removeEventSources = removeEventSources;
@@ -468,6 +469,18 @@ function EventManager() { // assumed to be a calendar
 		})[0];
 	}
 
+	// get event list by id so that more easy edit or setting them
+	function getEventById(id) {
+		var events = [];
+		// for each sources list
+		for (var i = 0; i <sources.length; i++) {
+			// match event id and return list
+			events = events.concat($.grep(sources[i].events, function(event) {
+				return event.id && event.id === id;
+			}));
+		}
+		return events;
+	}
 
 	// like getEventSourcesByMatch, but accepts multple match criteria (like multiple IDs)
 	function getEventSourcesByMatchArray(matchInputs) {
